@@ -59,6 +59,9 @@ const Navbar = () => {
           <li>
             <Link to="/contact">Contact</Link>
           </li>
+          <li>
+            <Link to="/orders">Orders</Link>
+          </li>
         </ul>
       </div>
       <div className="navbar-end">

@@ -5,7 +5,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleRegister = (e) => {
     e.preventDefault();
@@ -13,15 +13,23 @@ const Register = () => {
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(name, email, password);
     createUser(email, password)
       .then((result) => {
         const registerUser = result.user;
-        console.log(registerUser);
         form.reset();
         toast("User Create Successfully ! Please login ");
+        updateUserProfileName(registerUser, name);
         navigate("/login");
       })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+  const updateUserProfileName = (user, name) => {
+    updateUserProfile(user, {
+      displayName: name,
+    })
+      .then(() => {})
       .catch((error) => {
         console.log(error.message);
       });
